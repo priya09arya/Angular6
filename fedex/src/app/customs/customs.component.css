@@ -1,0 +1,22 @@
+a{
+    cursor: pointer;
+}
+.btn:hover
+{
+    background-image:none !important;
+    background-color:#f60 !important;
+}
+h3{
+    
+    background-color:  #4d148c;
+    color: white;
+}
+.textcolour{
+    height:40px;
+    width:1050px;
+    align-content: center;
+    margin-left:110px;
+    text-align: center;
+    color: #f60;
+    font-size: 20px;
+}

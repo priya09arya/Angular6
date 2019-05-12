@@ -1,0 +1,58 @@
+mat-expansion-panel{
+    margin-bottom: 15px;
+   
+}
+
+
+.mat-focused .placeholder {
+    color: #4d148c;
+}
+mat-tabs.mat-default-theme mat-ink-bar, mat-tabs mat-ink-bar {
+    color: red !important;
+    background-color:red !important;
+}
+a{
+    cursor: pointer;
+}
+.btn:hover
+{
+    background-image:none !important;
+    background-color:#f60 !important;
+}
+ ::ng-deep .specific-class > .mat-expansion-indicator:after {
+      color: white;
+    }
+  h3{
+    
+    background-color:  #4d148c;
+    color: white;
+}
+
+.textcolour{
+    height:40px;
+    width:1050px;
+    align-content: center;
+    margin-left:110px;
+    text-align: center;
+    color: #f60;
+    font-size: 20px;
+}
+.hashcolour{
+    height:40px;
+   
+    align-content: center;
+  
+word-break: break-all;
+    text-align: center;
+    color: #f60;
+    font-size: 12px;
+    margin-bottom: 30px;
+        margin-left: 20px;
+            margin-right: 20px;
+
+
+}
+#logsbloom{
+    display: block;
+
+}

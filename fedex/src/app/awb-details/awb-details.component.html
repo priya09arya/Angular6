@@ -1,0 +1,53 @@
+  
+ 
+ <head><meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script></head>
+  <mat-dialog-content  [formGroup]="form" style="width: 1005px;"> 
+ 
+  <table class="table table-borderless  table-hover ">
+       <tr *ngFor="let bird of arrBirds">
+   <div style="width: 75vw;"> <h3 >Product Details</h3>
+      <tr><td>Shipment Type:</td><td >{{bird.proDetails.shipmentType}}</td> <td>Product Type:</td><td>{{bird.proDetails.productType}}</td></tr>
+      <tr><td>Awb Number:</td><td>{{bird.proDetails.shipmentType}}</td> <td>Total Pieces:</td><td>{{bird.proDetails.shipmentType}}</td> </tr>
+      <tr><td>Total Weight:</td><td></td> <td>Unit:</td><td></td> </tr>
+ </div>
+    <div style="width: 75vw;">   <h3 >Dimensions Details</h3>
+      <tr><td>Width:</td><td></td> <td>Height:</td><td></td></tr>
+      <tr><td>Length:</td><td></td> <td>Total Pieces:</td><td></td> </tr>
+      <tr><td>Weight:</td><td></td> <td>Volume:</td><td></td> </tr>
+ </div>
+  <div style="width: 75vw;">     <h3 >Execution Date & Time Details</h3>
+      <tr><td>Execution Date:</td><td> </td> <td>Receipt Date:</td><td> </td></tr>
+      <tr><td>Receipt Time:</td><td></td> <td>Execution Place:</td><td></td> </tr>
+ </div>
+  <div style="width: 75vw;">     <h3 >Routing Details</h3>
+      <tr><td>Destination:</td><td></td> <td>Carrier:</td><td></td></tr>
+     
+ </div>
+  <div style="width: 75vw;">     <h3 >Customer Details - Shipper</h3>
+      <tr><td>Account Number:</td><td></td> <td>Account Holder Name:</td><td></td></tr>
+     <tr><td>Address:</td><td></td> <td>City:</td><td></td></tr>
+      <tr><td>State:</td><td></td> <td>Country:</td><td></td> </tr>
+      <tr><td>Postal Code:</td><td></td></tr>
+ </div>
+ <div style="width: 75vw;">      <h3 >Customer Details - Consingee</h3>
+      <tr><td>Account Number:</td><td></td> <td>Account Holder Name:</td><td></td></tr>
+     <tr><td>Address:</td><td></td> <td>City:</td><td></td></tr>
+      <tr><td>State:</td><td></td> <td>Country:</td><td></td> </tr>
+      <tr><td>Postal Code:</td><td></td></tr>
+ </div>
+ <div style="width: 75vw;">      <h3 >Charge Details</h3>
+      <tr><td>Mode of Payment:</td><td></td> </tr>
+      <tr><td>Amount:</td><td></td> <td>Unit:</td><td></td> </tr>
+     
+     </div>
+     
+  </table>
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button " style="background-color: #4d148c;color: white;"(click)="close()">Close</button>
+</mat-dialog-actions>

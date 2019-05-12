@@ -1,0 +1,53 @@
+ <head> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head>
+ <body class="Site">
+     <main class="Site-content">
+    <mat-toolbar >
+<mat-toolbar-row style="background-color: #4d148c">
+<img src="../assets/fedex.ico"/>
+    
+ </mat-toolbar-row>
+    </mat-toolbar>
+<mat-card class="example-card" style="margin-top: 200px;margin-left: 500px;margin-right: 500px;">    
+    <!-- Title of an Card -->    
+    <mat-card-title >    
+       Login
+    </mat-card-title>    
+    
+    <mat-card-content>    
+        <form class="example-form">    
+            <table class="example-full-width" cellspacing="0">  
+                <tr>
+                    <td> <mat-radio-group [(ngModel)]="rd" name="rd"> 
+                                    
+  <mat-radio-button   color="primary" value="1" checked>FedEx</mat-radio-button> &nbsp;&nbsp;&nbsp;
+  <mat-radio-button color="primary" value="2">Customs</mat-radio-button>
+</mat-radio-group>
+ </td> 
+                    </tr>  
+                <tr fxLayout="row" fxLayout.xs="column">    
+                    <td>    
+                        <mat-form-field class="example-full-width">   
+                        <input matInput   placeholder="Enter Username" [(ngModel)]="username" name="username" required>    
+                        </mat-form-field>    
+                    </td>  </tr>  
+                    <tr>
+                    <td>    
+                        <mat-form-field class="example-full-width">    
+                            <input type="password" matInput placeholder="Enter Password" [(ngModel)]="password" type="password" name="password" required>    
+                        </mat-form-field>    
+                    </td>    
+                </tr>    
+                  
+            </table>    
+        </form>
+            
+    
+    </mat-card-content>    
+     <mat-card-actions>
+     <button class="btn  btn-md " (click)="login()" style="background-color: #4d148c;color: white">Login</button>
+   </mat-card-actions>
+</mat-card> 
+</main>
+
+ </body>
+ 

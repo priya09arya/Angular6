@@ -1,0 +1,106 @@
+<head> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head>
+ <body class="Site">
+     <main class="Site-content">
+    <mat-toolbar color="primary">
+<mat-toolbar-row  style="background-color: #4d148c;">
+<img src="../assets/fedex.ico"/><h1 style="padding-left: 420px;color: white;padding-right: 420px;">Customs Clearance</h1>
+   <button mat-raised-button  (click)="logout()" style="color: white;" ><div style="color:#4d148c;"><b>Logout</b></div></button> 
+ </mat-toolbar-row>
+    </mat-toolbar>
+
+<div id="inner">
+    
+    <img *ngIf="loading"  src="./assets/loading.gif"  style="height:30px;width:40px;margin-left: 550px;margin-top: 10px;">
+    </div>
+<div id="text_content">
+</div>
+
+  <table class="table table-hover" style="font-size: 15px;" *ngIf="arrBirds">
+        <!-- ADD HEADERS -->
+     <tr>
+            <th>AWB NUMBER</th>
+                <th>DATE</th>
+                    <th>STATUS</th>
+                     
+        </tr>
+ <ng-container *ngFor="let a of arr;let i =index ">
+        <tr *ngFor="let bird of arrBirds; ">
+            <td><a style=" color:#4d148c;"  (click)="openModal(template,bird,i)"><u>{{bird[i].AWBNumber}}</u></a>
+            </td>
+                <td>{{bird[i].TIMESTAMP}}</td>
+                    <td>{{bird[i].STATUS}}</td>
+                   
+        </tr></ng-container>
+    </table>
+
+
+
+<ng-template #template>
+    <mat-dialog-content style="width: 1005px;"> 
+    <table class="table table-borderless  table-hover ">
+       <tr *ngFor="let bird of arrBirds1">
+   <div style="width: 75vw;"> <h3 >Product Details</h3>
+      <tr><td>Shipment Type:</td><td >{{shp1}}</td> <td>Product Type:</td><td>{{bird.proDetails.productType}}</td></tr>
+      <tr><td>Awb Number:</td><td>{{bird.proDetails.AWBNumber}}</td> <td>Total Pieces:</td><td>{{bird.proDetails.tPieces}}</td> </tr>
+      <tr><td>Total Weight:</td><td>{{bird.proDetails.tWeight}}</td> <td>Unit:</td><td></td> </tr>
+ </div>
+    <div style="width: 75vw;">   <h3 >Dimensions Details</h3>
+      <tr><td>Total Weight:</td><td>{{bird.DimensionDetails.tDimWeight}}</td> <td>Total Volume:</td><td>{{bird.DimensionDetails.tVolume}}</td></tr>
+     
+ </div>
+  <div style="width: 75vw;">     <h3 >Execution Date & Time Details</h3>
+      <tr><td>Execution Date:</td><td>{{bird.exDateandPlace.excDate}}</td> <td>Receipt Date:</td><td> {{bird.exDateandPlace.recptDate}}</td></tr>
+      <tr><td>Receipt Time:</td><td>{{bird.exDateandPlace.recptTime}}</td> <td>Execution Place:</td><td>{{bird.exDateandPlace.excPlace}}</td> </tr>
+ </div>
+  <div style="width: 75vw;">     <h3 >Routing Details</h3>
+      <tr><td>Destination:</td><td>{{bird.routing.destination}}</td> <td>Carrier:</td><td>{{bird.routing.carrier}}</td></tr>
+     
+ </div>
+  <div style="width: 75vw;">     <h3 >Customer Details - Shipper</h3>
+      <tr><td>Account Number:</td><td>{{bird.shipperLabel.accountNumber}}</td> <td>Account Holder Name:</td><td>{{bird.shipperLabel.name}}</td></tr>
+     <tr><td>Address:</td><td>{{bird.shipperLabel.Address}}</td> <td>City:</td><td>{{bird.shipperLabel.city}}</td></tr>
+      <tr><td>State:</td><td>{{bird.shipperLabel.state}}</td> <td>Country:</td><td>{{bird.shipperLabel.country}}</td> </tr>
+      <tr><td>Postal Code:</td><td>{{bird.shipperLabel.postalCode}}</td></tr>
+ </div>
+ <div style="width: 75vw;">      <h3 >Customer Details - Consingee</h3>
+      <tr><td>Account Number:</td><td>{{cacno1}}</td> <td>Account Holder Name:</td><td>{{cacname1}}</td></tr>
+     <tr><td>Address:</td><td>{{cad1}}</td> <td>City:</td><td>{{ccity1}}</td></tr>
+      <tr><td>State:</td><td>{{cState1}}</td> <td>Country:</td><td>{{ccntry1}}</td> </tr>
+      <tr><td>Postal Code:</td><td>{{ccode1}}</td></tr>
+ </div>
+ <div style="width: 75vw;">      <h3 >Charge Details</h3>
+      <tr><td>Mode of Payment:</td><td>{{ch1}}</td> </tr>
+      <tr><td>Amount:</td><td>{{at1}}</td> <td>Unit:</td><td>{{unit1}}</td> </tr>
+     
+     </div>
+     <div style="width: 75vw;">     <h3 >Shipment Details</h3>
+      <tr><td>Pieces:</td><td>{{shppc1}}</td> <td>Weight:</td><td>{{shpwt1}}</td></tr>
+     <tr><td>Rate class:</td><td>{{shprc1}}</td> <td>Chargeable Weight:</td><td>{{shpcw1}}</td></tr>
+      <tr><td>Rate:</td><td>{{shpr1}}</td> <td>Description:</td><td>{{shpd1}}</td> </tr>
+      
+ </div>
+  <div>   <tr>
+ <td>Action:</td>
+       <td> <select [(ngModel)]="status" name="status"  required>  
+                                <option disabled selected >{{status}}</option>    
+                                <option value="Accepted">Accept</option>    
+                                <option value="Rejected">Reject</option>    
+                            </select></td> </tr></div>
+     
+  </table></mat-dialog-content > <mat-dialog-actions>
+        <button class="btn  btn-md " style="background-color: #4d148c;color: white;"(click)="close()" >Close</button>
+        <button class="btn  btn-md " style="background-color: #4d148c;color: white;margin-left: 10px;"(click)="submit1(status)" >Submit</button>
+
+   
+</mat-dialog-actions>
+
+</ng-template>
+
+
+
+
+
+
+    </main>
+    
+    </body>

@@ -1,0 +1,633 @@
+<head> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head>
+ <body class="Site">
+     <main class="Site-content" >
+    <mat-toolbar >
+<mat-toolbar-row style="background-color: #4d148c;">
+<img src="../assets/fedex.ico"/><h1 style="padding-left: 400px;color: white;padding-right: 400px;">Key International Air Cargo</h1>
+   <button mat-raised-button  (click)="logout()" style="color: white;" ><div style="color:#4d148c;"><b>Logout</b></div></button> 
+ </mat-toolbar-row>
+    </mat-toolbar>
+
+<div id="inner">
+    <img *ngIf="loading"  src="./assets/loading.gif" style="height:30px;width:40px;margin-left: 550px;margin-top: 10px;">
+    </div>
+<div id="text_content">
+</div>
+<div id="hash"class="container">
+</div>
+
+
+<mat-tab-group class="mat-tab-group mat-primary">
+  <mat-tab  label="AWB ENTRY" style="border-color: black;" ><div class="container" style="margin: 10px;"> 
+   <form class="example-form" (ngSubmit)="submit(this)" id="myForm">  <mat-expansion-panel>
+  <mat-expansion-panel-header  class="specific-class"style="background-color: #4d148c;" >
+    <mat-panel-title style="color:white;" >
+        PRODUCT DETAILS
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+            <table class="example-full-width" cellspacing="0"> 
+              <tr><td><br>    
+                        <mat-form-field>    
+                            <mat-select placeholder="Select Shipment Type" [(ngModel)]="shp" name="shp" required>    
+                                <mat-option>-- Select Any --</mat-option>    
+                                <mat-option value="AWB">AWB</mat-option>    
+                                <mat-option value="EDI">EDI</mat-option>    
+                                <mat-option value="HBM">HBM</mat-option>    
+                            </mat-select>    
+                        </mat-form-field>    
+                    </td><td>    <br> 
+                        <mat-form-field style="margin-left: 100px;" >   
+                        <input type="text" matInput placeholder="Enter Product Type"   [(ngModel)]="prd" name="prd" required>    
+                        </mat-form-field>    
+                    </td>   </tr>
+                <tr>    
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="number" matInput placeholder="Enter AWB Number"   [(ngModel)]="no" name="no" required>    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="number" matInput placeholder="Enter Total pieces"  min="3" max="10" [(ngModel)]="pc" name="pc" required>    
+                        </mat-form-field>    
+                    </td>  </tr>  
+                    <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="number" matInput placeholder="Enter Total Weight" [(ngModel)]="wt" name="wt" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                    <td>   <mat-radio-group [(ngModel)]="rd" name="rd" style="margin-left: 100px;">
+  <mat-radio-button color="primary" name="rd"  value="lbs" checked>lbs</mat-radio-button>
+  <mat-radio-button color="primary" name="rd" value="kg" style="margin-left: 15px;">kg</mat-radio-button>
+
+</mat-radio-group>
+ </td></tr>
+  <tr><td>Status:</td> <mat-form-field   >   
+                        <input type="text" matInput placeholder="New" disabled>    
+                        </mat-form-field>  
+                   </tr>
+            </table>    
+       
+
+</mat-expansion-panel>
+<mat-expansion-panel>
+  <mat-expansion-panel-header class="specific-class" style="background-color: #4d148c;"  >
+    <mat-panel-title style="color:white;" >
+      DIMENSION DETAILS
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+<br>
+   <table class="example-full-width" cellspacing="0"> 
+         <tr>
+              <td> <label>Weight : </label>{{wgt}}</td>
+         <td style="margin-left: 100px;"> <label>Volume : </label>{{vol}}</td></tr>
+          <tr>    
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="number" matInput placeholder="Enter Width"  [(ngModel)]="wdt" name="wdt" required="true">    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="number" matInput placeholder="Enter Height"  [(ngModel)]="ht" name="ht" required>    
+                        </mat-form-field>    
+                    </td>  </tr> 
+                      <tr>    
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="number" matInput placeholder="Enter Length"  [(ngModel)]="lt" name="lt" required>    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="number" matInput placeholder="Enter Total pieces"  [(ngModel)]="nopc" name="nopc" required>    
+                        </mat-form-field>    
+                    </td>  <td> <input type="button" mat-raised-button (click)="volume()"  style="margin-left: 50px;background-color: #4d148c;color: white; " value="Calculate"></td> </tr>   </table>
+
+</mat-expansion-panel>
+<mat-expansion-panel>
+  <mat-expansion-panel-header class="specific-class" style="background-color: #4d148c;"  >
+    <mat-panel-title style="color:white;" >
+      EXECUTION DATE AND TIME
+    </mat-panel-title>
+  </mat-expansion-panel-header >
+
+   <br>  
+            <table class="example-full-width" cellspacing="0"> 
+               <tr>
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="date" matInput placeholder="Select Execution Date"  [(ngModel)]="ex" name="ex" required>    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="date" matInput placeholder="Select Receipt Date"  [(ngModel)]="rp" name="rp" required>    
+                        </mat-form-field>    
+                    </td>  </tr>  
+                    <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="time" matInput placeholder="Select Receipt Time" [(ngModel)]="rt" name="rt" required>    
+                        </mat-form-field>    
+                    </td>
+                     <td>    
+                        <mat-form-field   style="margin-left: 100px;">    
+                            <input type="text" matInput placeholder="Enter Execution Place" [(ngModel)]="ep" name="ep" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                   </tr> 
+            </table>    
+      
+</mat-expansion-panel>
+<mat-expansion-panel>
+  <mat-expansion-panel-header  class="specific-class" style="background-color: #4d148c;" >
+    <mat-panel-title style="color:white;" >
+    ROUTING
+    </mat-panel-title>
+  </mat-expansion-panel-header><br>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Destination</th>
+            <th>Carrier</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+       
+        <tr>
+            <td><mat-form-field >  
+                <input  type="text" matInput placeholder="Enter Destination" id="newAttributeCode" [(ngModel)]="newAttributeCode" name="newAttributeCode" required>
+           </mat-form-field >   </td>
+            <td><mat-form-field >  
+                <input  type="text" matInput placeholder="Enter Carrier" id="newAttributeName" [(ngModel)]="newAttributeName" name="newAttributeName" required>
+           </mat-form-field >   </td>
+           
+        </tr>
+    </tbody>
+</table>
+</mat-expansion-panel>
+<mat-expansion-panel>
+  <mat-expansion-panel-header class="specific-class" style="background-color: #4d148c;" >
+    <mat-panel-title style="color:white;" >
+      CUSTOMER DETAILS - SHIPPER
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+ 
+            <table class="example-full-width" cellspacing="0"> 
+
+                <tr>    
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="number" matInput placeholder="Enter Account Number"  [(ngModel)]="sacno" name="sacno" required>    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="text" matInput placeholder="Enter Acc. Holder name"  [(ngModel)]="sacname" name="sacname" required>    
+                        </mat-form-field>    
+                    </td>  </tr>  
+                    <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="text" matInput placeholder="Enter Address" [(ngModel)]="sad" name="sad" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                    <td>    
+                        <mat-form-field style="margin-left: 100px;" >    
+                            <input type="text" matInput placeholder="Enter City" [(ngModel)]="scity" name="scity" required>    
+                        </mat-form-field>    
+                    </td></tr> 
+                     <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="text" matInput placeholder="Enter State" [(ngModel)]="sState" name="sState" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                   <td ><br>    
+                        <mat-form-field style="margin-left: 100px;" >    
+                            <mat-select placeholder="Select Country" [(ngModel)]="scntry" name="scntry" required>    
+                                <mat-option>-- Select Any --</mat-option>    
+                                <mat-option value="India">India</mat-option>    
+                                <mat-option value="Spain">Spain</mat-option>  
+                                <mat-option value="France">France</mat-option>   
+                                <mat-option value="Japan">Japan</mat-option>    
+ 
+  
+                            </mat-select>    
+                        </mat-form-field>    
+                    </td>  </tr> 
+                    <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="number" matInput placeholder="Enter Postal Code " [(ngModel)]="scode" name="scode" required>    
+                        </mat-form-field>    
+                    </td></tr>
+            </table>    
+       
+
+</mat-expansion-panel>
+ 
+<mat-expansion-panel>
+  <mat-expansion-panel-header class="specific-class" style="background-color: #4d148c;" >
+    <mat-panel-title style="color:white;" >
+      CUSTOMER DETAILS - CONSIGNEE
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+    
+            <table class="example-full-width" cellspacing="0"> 
+                <tr>    
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="number" matInput placeholder="Enter Account Number"  [(ngModel)]="cacno" name="cacno" required>    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="text" matInput placeholder="Enter Acc. Holder name"  [(ngModel)]="cacname" name="cacname" required>    
+                        </mat-form-field>    
+                    </td>  </tr>  
+                    <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="text" matInput placeholder="Enter Address" [(ngModel)]="cad" name="cad" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                    <td>    
+                        <mat-form-field style="margin-left: 100px;" >    
+                            <input type="text" matInput placeholder="Enter City" [(ngModel)]="ccity" name="ccity" required>    
+                        </mat-form-field>    
+                    </td></tr> 
+                     <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="text" matInput placeholder="Enter State" [(ngModel)]="cState" name="cState" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                   <td ><br>    
+                        <mat-form-field style="margin-left: 100px;" >    
+                            <mat-select placeholder="Select Country" [(ngModel)]="ccntry" name="ccntry" required>    
+                                <mat-option>-- Select Any --</mat-option>    
+                                <mat-option value="India">India</mat-option>    
+                                <mat-option value="Spain">Spain</mat-option>  
+                                <mat-option value="France">France</mat-option>   
+                                <mat-option value="Japan">Japan</mat-option>    
+ 
+  
+                            </mat-select>    
+                        </mat-form-field>    
+                    </td>  </tr> 
+                    
+                     <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="number" matInput placeholder="Enter Postal Code " [(ngModel)]="ccode" name="ccode" required>    
+                        </mat-form-field>    
+                    </td></tr>
+                    
+            </table>    
+      
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header class="specific-class" style="background-color: #4d148c;" >
+    <mat-panel-title style="color:white;" >
+    ROUTING
+    </mat-panel-title>
+  </mat-expansion-panel-header><br>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Destination</th>
+            <th>Carrier</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><mat-form-field >  
+                <input  type="text" matInput placeholder="Enter Destination" id="newAttributeCode" [(ngModel)]="newAttributeCode" name="newAttributeCode" required>
+           </mat-form-field >   </td>
+            <td><mat-form-field >  
+                <input  type="text" matInput placeholder="Enter Carrier" id="newAttributeName" [(ngModel)]="newAttributeName" name="newAttributeName" required>
+           </mat-form-field >   </td>
+         
+        </tr>
+    </tbody>
+</table>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header class="specific-class" style="background-color: #4d148c;" >
+    <mat-panel-title style="color:white;" >
+      CHARGE DETAILS
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+      <br>
+            <table class="example-full-width" cellspacing="0">  
+                <tr>
+                    <td> <mat-radio-group [(ngModel)]="ch" name="ch" required>
+  <mat-radio-button color="primary"   value="debit" checked>Debit</mat-radio-button> 
+  <mat-radio-button color="primary" style="margin-left: 50px; " value="credit">Credit</mat-radio-button> 
+   <mat-radio-button color="primary" style="margin-left: 50px;" value="cash">Cash</mat-radio-button>
+</mat-radio-group>
+ </td> 
+       </tr>
+       <tr>
+                    <td>  <br>  
+                        <mat-form-field >    
+                            <input type="number" matInput placeholder="Enter Amount" [(ngModel)]="at" name="at" required>    
+                        </mat-form-field>    
+                    </td>
+                     <td ><br>    
+                        <mat-form-field style="margin-left: 100px;" >    
+                            <mat-select placeholder="Select Unit" [(ngModel)]="unit" name="unit" required>    
+                                <mat-option>-- Select Any --</mat-option>    
+                                <mat-option value="Dollar">Dollar</mat-option>    
+                                <mat-option value="INR">INR</mat-option>    
+                                <mat-option value="Euro">Euro</mat-option>    
+                            </mat-select>    
+                        </mat-form-field>    
+                    </td>   
+                   
+                   </tr> 
+            </table>    
+       
+</mat-expansion-panel> 
+<mat-expansion-panel>
+  <mat-expansion-panel-header  class="specific-class" style=" background-color: #4d148c;" >
+    <mat-panel-title style="color:white;">
+     SHIPMENT DETAILS
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+    
+            <table class="example-full-width" cellspacing="0"> 
+                <tr>    
+                    <td>    
+                        <mat-form-field  >   
+                        <input type="number" matInput placeholder="Enter Pieces"  [(ngModel)]="shppc" name="shpc" required>    
+                        </mat-form-field>    
+                    </td>  <td>    
+                        <mat-form-field  style="margin-left: 100px;" >   
+                        <input type="text" matInput placeholder="Enter Weight"  [(ngModel)]="shpwt" name="shpwt" required>    
+                        </mat-form-field>    
+                    </td>  </tr>  
+                    <tr>
+                    <td>    
+                        <mat-form-field >    
+                            <input type="text" matInput placeholder="Enter Rate Class" [(ngModel)]="shprc" name="shprc" required>    
+                        </mat-form-field>    
+                    </td>
+                   
+                    <td>    
+                        <mat-form-field style="margin-left: 100px;" >    
+                            <input type="text" matInput placeholder="Enter Chargeable Weight" [(ngModel)]="shpcw" name="shpcw" required>    
+                        </mat-form-field>    
+                    </td></tr> 
+                    
+                     <tr>
+                    <td>    
+                        <mat-form-field  >    
+                            <input type="text" matInput placeholder="Enter Rate " [(ngModel)]="shpr" name="shpr" required>    
+                      
+                        </mat-form-field>    
+                    </td>
+                     <td>    
+                        <mat-form-field style="margin-left: 100px;">    
+                            <input type="text" matInput placeholder="Enter Description " [(ngModel)]="shpd" name="shpd" required>    
+                        </mat-form-field>    
+                    </td></tr>
+                    
+            </table>    
+      
+</mat-expansion-panel>
+
+<table><tr>
+    <td> <button  type="submit" class='btn btn-md' style="margin-left: 1000px;background-color: #4d148c;color: white">Create AWB</button></td>
+          </tr>
+           
+
+</table></form>
+</div> </mat-tab>
+
+
+
+
+
+
+
+
+
+
+
+
+  <mat-tab label="LIST DISPLAY" > 
+
+
+
+      <br><br>
+    <table class="table table-hover" style="font-size: 15px;" *ngIf="arrBirds">
+        <!-- ADD HEADERS -->
+       <tr>
+            <th>AWB NUMBER</th>
+                <th>DATE</th>
+                    <th>STATUS</th>
+        </tr>
+
+        <!-- BIND ARRAY TO TABLE -->
+         <ng-container *ngFor="let a of arr;let i =index ">
+        <tr *ngFor="let bird of arrBirds; ">
+            <td><a  style="color: #4d148c;"  (click)="openModal(template,bird,i)"><u>{{bird[i].AWBNumber}}</u></a>
+            </td>
+                <td>{{bird[i].TIMESTAMP}}</td>
+                    <td>{{bird[i].STATUS}}</td>
+                   
+        </tr></ng-container>
+    </table>
+
+  </mat-tab>
+
+   <mat-tab label="HASH INFO" > 
+ <div>
+                        <mat-form-field style="margin: 20px;width: 600px;">    
+                            <input type="text" matInput placeholder="Enter Hash Number "  [(ngModel)]="hno1" name="hno1" required>    
+                        </mat-form-field>    
+                  
+    <button class="btn  btn-md " style="background-color: #4d148c;color: white;margin-left: 10px;"(click)="hash(hno1)" >Submit</button>
+<div  *ngIf="show" style="margin-left: 20px;margin-right:500px;">
+   <table >
+      <tr> <td> blockHash:</td><td>{{blockHash}}</td></tr>
+ <tr> <td>blockNumber:</td><td>{{blockNumber}}</td></tr>
+ <tr> <td>contractAddress:</td><td>{{contractAddress}}</td></tr>
+ <tr> <td>cumulativeGasUsed:</td><td>{{cumulativeGasUsed}}</td></tr>
+ <tr> <td>from:</td><td>{{from}}</td></tr>
+ <tr> <td>to:</td><td>{{to}}</td></tr>
+ <tr> <td>root:</td><td>{{root}}</td></tr>
+ <tr> <td>gasUsed:</td><td>{{gasUsed}}</td></tr>
+ <tr> <td>transactionHash:</td><td>{{transactionHash}}</td></tr>
+ <tr> <td>transactionIndex:</td><td>{{transactionIndex}}</td></tr>
+ 
+ <tr  > <td>logsBloom:</td>
+ <td id="logsbloom"><textarea disabled style="width: 1100px;height: 100px;font-size: 15px;">{{logsBloom}}</textarea></td></tr>
+ 
+ <tr> <td>logs:</td><td>{{logs}}</td></tr>
+   </table>
+</div>
+</div>                 
+ </mat-tab>
+
+</mat-tab-group>
+
+
+
+<ng-template #template>
+     <form class="example-form" (ngSubmit)="submit1(this)" >
+    <mat-dialog-content style="width: 1005px;"> 
+       
+     <table class="table table-borderless  table-hover ">
+       <div *ngFor="let bird of arrBirds1">
+   <div style="width: 75vw;"> <h3 >Product Details</h3>
+      <tr><td>Shipment Type:</td>
+        
+                         <td>   <select  [(ngModel)]="shp1" name="shp1"   required>    
+                                <option disabled selected >{{shp1}}</option>    
+                                <option value="AWB">AWB</option>    
+                                <option value="EDI">EDI</option>    
+                                <option value="HBM">HBM</option>    
+                            </select>  </td>  
+   
+       <td>Product Type:</td>
+         
+                        <td>    
+                        
+                        <input type="text"   [(ngModel)]="prd1" name="prd1" required>    
+                         
+                    </td> 
+                         </tr>
+      <tr><td>Awb Number:</td>  <td>  
+                        <input type="number"  [(ngModel)]="no1" name="no1" required disabled>    
+                       </td>
+     <td>Total Pieces:</td><td>  <input type="number"   [(ngModel)]="pc1" name="pc1" required> </td> </tr>
+     
+      <tr>
+            <td>Total Weight:</td><td>  <input type="text"   [(ngModel)]="wt1" name="wt1"  required> 
+                                          </td> 
+                   
+ <td>Unit:</td>  <td>  <input type="radio" name="units">lbs &nbsp;
+      <input type="radio" name="units"> kg &nbsp;
+      
+ </td></tr> 
+ <tr><td>Status:</td>  
+                       <td> <input type="text"  [(ngModel)]="status1" name="{{status1}}" disabled></td>    
+                        
+                   </tr>
+ </div>
+    <div style="width: 75vw;">   <h3 >Dimensions Details</h3>
+       <tr >
+          <td>Total Weight:</td>  <td>
+                <input [(ngModel)]="wgt1" type="number" name="wgt1" disabled/>
+            </td>
+          <td>Total Volume:</td>   <td>
+                <input [(ngModel)]="vol1"  type="number" name="vol1" disabled/>
+           </td> 
+           
+        </tr>
+        
+ </div>
+  <div style="width: 75vw;">     <h3 >Execution Date & Time Details</h3>
+      <tr><td>Execution Date:</td><td> <input type="date"  [(ngModel)]="ex1" name="ex1" required>     </td>
+       <td>Receipt Date:</td><td> <input type="date"  [(ngModel)]="rp1" name="rp1" required>    </td></tr>
+      <tr><td>Receipt Time:</td><td><input type="time"  [(ngModel)]="rt1" name="rt1" required>    </td> 
+      <td>Execution Place:</td><td><input type="text"  [(ngModel)]="ep1" name="ep1" required>    </td> </tr>
+ </div>
+  <div style="width: 75vw;">     <h3 >Routing Details</h3>
+      <tr><td>Destination:</td>
+      <td> <input [(ngModel)]="newAttributeCode1" type="text" name="newAttributeCode1" /></td>
+       <td>Carrier:</td>
+       <td> <input [(ngModel)]="newAttributeName1" type="text" name="newAttributeName1" /></td>
+       </tr>
+     
+ </div>
+ <div style="width: 75vw;">     <h3 >Customer Details - Shipper</h3>
+      <tr><td>Account Number:</td><td> <input [(ngModel)]="sacno1" type="number" name="sacno1" /></td>
+       <td>Account Holder Name:</td><td> <input [(ngModel)]="sacname1" type="text" name="sacname1" /></td></tr>
+     <tr><td>Address:</td><td> <input [(ngModel)]="sad1" type="text" name="sad1" /></td>
+      <td>City:</td><td> <input [(ngModel)]="scity1" type="text" name="scity1" /></td></tr>
+      <tr><td>State:</td><td> <input [(ngModel)]="sState1" type="text" name="sState1" /></td>
+       <td>Country:</td>
+       <td> <select [(ngModel)]="scntry1" name="scntry1" required>    
+                                <option disabled selected >{{scntry1}}</option>    
+                                <option value="India">India</option>    
+                                <option value="Spain">Spain</option>    
+                                <option value="France">France</option> 
+                                <option value="China">China</option>    
+                            </select></td> </tr>
+      <tr><td>Postal Code:</td><td> <input [(ngModel)]="scode1" type="number" name="scode1" /></td></tr>
+ 
+                            </div>
+                            <div style="width: 75vw;">     <h3 >Customer Details - Consignee</h3>
+      <tr><td>Account Number:</td><td> <input [(ngModel)]="cacno1" type="number" name="cacno1" /></td>
+       <td>Account Holder Name:</td><td> <input [(ngModel)]="cacname1" type="text" name="cacname1" /></td></tr>
+     <tr><td>Address:</td><td> <input [(ngModel)]="cad1" type="text" name="cad1" /></td>
+      <td>City:</td><td> <input [(ngModel)]="ccity1" type="text" name="ccity1" /></td></tr>
+      <tr><td>State:</td><td> <input [(ngModel)]="cState1" type="text" name="cState1" /></td>
+       <td>Country:</td>
+       <td> <select [(ngModel)]="ccntry1" name="ccntry1" required>    
+                                <option disabled selected >{{ccntry1}}</option>    
+                               <option value="India">India</option>    
+                                <option value="Spain">Spain</option>    
+                                <option value="France">France</option> 
+                                <option value="China">China</option>   
+                            </select></td> </tr>
+      <tr><td>Postal Code:</td><td> <input [(ngModel)]="ccode1" type="number" name="ccode1" /></td></tr>
+ 
+                            </div>
+
+                             <div style="width: 75vw;">     <h3 >Charge Details</h3>
+                              <tr><td>Payment Mode:</td>
+       <td> <select [(ngModel)]="ch1" name="ch1" required>    
+                                <option disabled selected >{{ch1}}</option>    
+                                <option value="Cash">Cash</option>    
+                                <option value="Debit">Debit</option>    
+                                <option value="Credit">Credit</option>    
+                            </select></td> </tr>
+      <tr>
+       <td>Amount:</td><td> <input [(ngModel)]="at1" type="number" name="at1" /></td>
+     <td>Unit:</td><td> <input [(ngModel)]="unit1" type="text" name="unit1" /></td></tr>
+      
+                      </div>
+
+                      <div style="width: 75vw;">     <h3 >Shipment Details</h3>
+      <tr><td>pieces:</td><td> <input [(ngModel)]="shppc1" type="number" name="shppc1" /></td>
+       <td>Weight:</td><td> <input [(ngModel)]="shpwt1" type="text" name="shpwt1" /></td></tr>
+     <tr><td>Rate Class:</td><td> <input [(ngModel)]="shprc1" type="text" name="shprc1" /></td>
+      <td>Chargeable Weight:</td><td> <input [(ngModel)]="shpcw1" type="number" name="shpcw1" /></td></tr>
+      <tr><td>Rate:</td><td> <input [(ngModel)]="shpr1" type="text" name="shpr1" /></td>
+      <td>Description:</td><td> <input [(ngModel)]="shpd1" type="text" name="shpd1" /></td></tr>
+                            </div>
+     </div>
+  </table></mat-dialog-content > <mat-dialog-actions>
+        
+        <input type="button" class='btn  btn-md' style="background-color: #4d148c;color: white;"(click)="close()" value="Close" >
+         <button class='btn btn-md' type="submit" style="background-color: #4d148c;color: white;margin-left: 10px;">Update</button>
+</mat-dialog-actions>
+</form>
+</ng-template>
+
+
+
+
+
+
+</main>
+</body>
+
+
+ 

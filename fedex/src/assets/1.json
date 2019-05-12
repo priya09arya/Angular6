@@ -1,0 +1,23 @@
+{
+	"proDetails":{
+		"shipmentType":"Airline",
+		"productType":"Fragile",
+		"AWBNumber":"12",
+		"tPieces":"4",
+		"tWeight":"100 kgs"
+	},
+	"DimensionDetails":{
+		"tDimWeight":["4","10"],
+		"tVolume":["15","18"]
+	},
+	"exDateandPlace":{
+		"excDate":"09/09/2018",
+		"excPlace": "Frankfurte",
+		"recptDate": "20.09.2018",
+		"recptTime": "1400hrs"
+	},
+	"routing":{
+		"srno": "4",
+		"destination":"Frankfurt"
+	}
+}
